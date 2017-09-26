@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heartBar.dao.UserInfoDAO" >
+
+    <resultMap id="accountUserMap" type="com.heartBar.dto.UserInfo" >
+        <id column="id" property="id" />
+        <result column="user_type" property="userType" />
+        <result column="code" property="code" />
+        <result column="password" property="password" />
+        <result column="head_img" property="headImg" />
+        <result column="name" property="name" />
+        <result column="sex" property="sex" />
+        <result column="mobile" property="mobile" />
+        <result column="qq" property="qq" />
+        <result column="weixin" property="weixin" />
+        <result column="weibo" property="weibo" />
+    </resultMap>
+
+    <sql id="allColumns">
+        ui.id,ui.user_type,ui.code,ui.password,ui.head_img,ui.name,ui.sex,ui.mobile,ui.qq,ui.weixin,ui.weibo
+    </sql>
+
+    <select id="queryUserInfoById" resultMap="accountUserMap">
+        SELECT <include refid="allColumns"/>
+        FROM user_info
+        WHERE id=#{id}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO user_info (user_type,code,password,head_img,name,sex,mobile,qq,weixin,weibo) VALUES
+        (#{userType},#{code},#{password},#{headImg},#{name},#{sex},#{mobile},#{qq},#{weixin},#{weibo})
+    </insert>
+
+
+</mapper>
