@@ -1,7 +1,8 @@
-package com.heartBar.conrtoller;
+package com.heartBar.sharedDiary.controller;
 
-import com.heartBar.dto.UserInfo;
-import com.heartBar.service.UserInfoService;
+import com.heartBar.sharedDiary.dto.UserInfo;
+
+import com.heartBar.sharedDiary.service.UserInfoService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,7 +12,6 @@ import javax.annotation.Resource;
  * @author zhangxy 2017/9/26 17:25
  */
 @RestController
-@RequestMapping("/user")
 public class UserInfoController {
 
     @Resource

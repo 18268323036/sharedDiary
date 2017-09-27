@@ -1,6 +1,7 @@
-package com.heartBar.service;
+package com.heartBar.sharedDiary.service;
 
-import com.heartBar.dto.UserInfo;
+
+import com.heartBar.sharedDiary.dto.UserInfo;
 
 /**
  * @author zhangxy 2017/9/26 14:45

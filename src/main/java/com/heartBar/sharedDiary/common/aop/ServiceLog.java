@@ -1,4 +1,4 @@
-package com.heartBar.common.aop;
+package com.heartBar.sharedDiary.common.aop;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

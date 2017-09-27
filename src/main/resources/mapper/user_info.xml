@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.heartBar.dao.UserInfoDAO" >
+<mapper namespace="com.heartBar.sharedDiary.dao.UserInfoDAO" >
 
-    <resultMap id="accountUserMap" type="com.heartBar.dto.UserInfo" >
+    <resultMap id="accountUserMap" type="com.heartBar.sharedDiary.dto.UserInfo" >
         <id column="id" property="id" />
         <result column="user_type" property="userType" />
         <result column="code" property="code" />
@@ -22,7 +22,7 @@
 
     <select id="queryUserInfoById" resultMap="accountUserMap">
         SELECT <include refid="allColumns"/>
-        FROM user_info
+        FROM user_info ui
         WHERE id=#{id}
     </select>
 

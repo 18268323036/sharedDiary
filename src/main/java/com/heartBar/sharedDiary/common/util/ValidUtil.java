@@ -1,7 +1,7 @@
-package com.heartBar.common.util;
+package com.heartBar.sharedDiary.common.util;
 
-import com.heartBar.common.expection.ResultEnum;
-import com.heartBar.common.expection.ValidException;
+import com.heartBar.sharedDiary.common.expection.ResultEnum;
+import com.heartBar.sharedDiary.common.expection.ValidException;
 import org.springframework.util.StringUtils;
 
 /**

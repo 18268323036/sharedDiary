@@ -1,11 +1,12 @@
-package com.heartBar.dto;
+package com.heartBar.sharedDiary.dto;
+
 
 import java.io.Serializable;
 
 /**
- * @author zhangxy 2017/9/26 11:49
+ * @author zhangxy 2017/9/27 16:11
  */
-public class UserInfo implements Serializable{
+public class UserInfo implements Serializable {
 
     private static final long serialVersionUID = -6469430740589692302L;
 

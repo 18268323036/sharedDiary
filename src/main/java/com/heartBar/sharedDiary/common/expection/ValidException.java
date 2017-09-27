@@ -1,4 +1,4 @@
-package com.heartBar.common.expection;
+package com.heartBar.sharedDiary.common.expection;
 
 /**
  * @author zhangxy 2017/9/26 14:52

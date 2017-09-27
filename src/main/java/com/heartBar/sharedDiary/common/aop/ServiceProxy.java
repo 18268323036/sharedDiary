@@ -1,6 +1,5 @@
-package com.heartBar.common.aop;
+package com.heartBar.sharedDiary.common.aop;
 
-import com.heartBar.common.expection.ValidException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -28,7 +27,7 @@ public class ServiceProxy {
 
     Logger LOG = LoggerFactory.getLogger(ServiceProxy.class);
 
-    @Pointcut("@annotation(com.heartBar.common.aop.ServiceLog)")
+    @Pointcut("@annotation(com.heartBar.sharedDiary.common.aop.ServiceLog)")
     public void cutController() {
     }
 

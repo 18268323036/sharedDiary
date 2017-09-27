@@ -1,10 +1,10 @@
-package com.heartBar.service.impl;
+package com.heartBar.sharedDiary.service.impl;
 
-import com.heartBar.common.aop.ServiceLog;
-import com.heartBar.common.util.ValidUtil;
-import com.heartBar.dao.UserInfoDAO;
-import com.heartBar.dto.UserInfo;
-import com.heartBar.service.UserInfoService;
+import com.heartBar.sharedDiary.common.aop.ServiceLog;
+import com.heartBar.sharedDiary.common.util.ValidUtil;
+import com.heartBar.sharedDiary.dao.UserInfoDAO;
+import com.heartBar.sharedDiary.dto.UserInfo;
+import com.heartBar.sharedDiary.service.UserInfoService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
