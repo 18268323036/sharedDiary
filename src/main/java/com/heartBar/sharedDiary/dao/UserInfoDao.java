@@ -11,5 +11,7 @@ public interface UserInfoDAO {
 
     UserInfo queryUserInfoById(Long id);
 
+    UserInfo queryUserInfo(UserInfo userInfo);
+
     int insert(UserInfo userInfo);
 }

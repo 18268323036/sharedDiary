@@ -26,6 +26,8 @@ public class UserInfo implements Serializable {
     private byte sex;
     //手机号
     private String mobile;
+    //注册来源(1.web端 2.app端 3.微信端)
+    private Byte registSource;
     //qq
     private String qq;
     //微信
@@ -119,5 +121,13 @@ public class UserInfo implements Serializable {
 
     public void setWeibo(String weibo) {
         this.weibo = weibo;
+    }
+
+    public Byte getRegistSource() {
+        return registSource;
+    }
+
+    public void setRegistSource(Byte registSource) {
+        this.registSource = registSource;
     }
 }

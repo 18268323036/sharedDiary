@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heartBar.sharedDiary.dao.UserConditionDAO" >
+  <resultMap id="BaseResultMap" type="com.heartBar.sharedDiary.dto.UserCondition" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="web_token" property="webToken" jdbcType="VARCHAR" />
+    <result column="app_token" property="appToken" jdbcType="VARCHAR" />
+    <result column="weixin_token" property="weixinToken" jdbcType="VARCHAR" />
+    <result column="last_login_client" property="lastLoginClient" jdbcType="CHAR" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="province_code" property="provinceCode" jdbcType="CHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city_code" property="cityCode" jdbcType="CHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="county_code" property="countyCode" jdbcType="CHAR" />
+    <result column="county" property="county" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id,web_token, app_token, weixin_token, last_login_client, last_login_time, create_time,
+    modify_time, province_code, province, city_code, city, county_code, county
+  </sql>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_condition
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_condition
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.heartBar.sharedDiary.dto.UserCondition" >
+    insert into user_condition (id, user_id,web_token, app_token,
+      weixin_token, last_login_client, last_login_time, 
+      create_time, modify_time, province_code, 
+      province, city_code, city, 
+      county_code, county)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},#{webToken,jdbcType=VARCHAR}, #{appToken,jdbcType=VARCHAR},
+      #{weixinToken,jdbcType=VARCHAR}, #{lastLoginClient,jdbcType=CHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      now(), now(), #{provinceCode,jdbcType=CHAR},
+      #{province,jdbcType=VARCHAR}, #{cityCode,jdbcType=CHAR}, #{city,jdbcType=VARCHAR}, 
+      #{countyCode,jdbcType=CHAR}, #{county,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.heartBar.sharedDiary.dto.UserCondition" >
+    insert into user_condition
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="webToken != null" >
+        web_token,
+      </if>
+      <if test="appToken != null" >
+        app_token,
+      </if>
+      <if test="weixinToken != null" >
+        weixin_token,
+      </if>
+      <if test="lastLoginClient != null" >
+        last_login_client,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="provinceCode != null" >
+        province_code,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="cityCode != null" >
+        city_code,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="countyCode != null" >
+        county_code,
+      </if>
+      <if test="county != null" >
+        county,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="webToken != null" >
+        #{webToken,jdbcType=VARCHAR},
+      </if>
+      <if test="appToken != null" >
+        #{appToken,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinToken != null" >
+        #{weixinToken,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginClient != null" >
+        #{lastLoginClient,jdbcType=CHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="modifyTime != null" >
+        now(),
+      </if>
+      <if test="provinceCode != null" >
+        #{provinceCode,jdbcType=CHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=CHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="countyCode != null" >
+        #{countyCode,jdbcType=CHAR},
+      </if>
+      <if test="county != null" >
+        #{county,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.heartBar.sharedDiary.dto.UserCondition" >
+    update user_condition
+    <set >
+      <if test="webToken != null" >
+        web_token = #{webToken,jdbcType=VARCHAR},
+      </if>
+      <if test="appToken != null" >
+        app_token = #{appToken,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinToken != null" >
+        weixin_token = #{weixinToken,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginClient != null" >
+        last_login_client = #{lastLoginClient,jdbcType=CHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="provinceCode != null" >
+        province_code = #{provinceCode,jdbcType=CHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        city_code = #{cityCode,jdbcType=CHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="countyCode != null" >
+        county_code = #{countyCode,jdbcType=CHAR},
+      </if>
+      <if test="county != null" >
+        county = #{county,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.heartBar.sharedDiary.dto.UserCondition" >
+    update user_condition
+    set web_token = #{webToken,jdbcType=VARCHAR},
+      app_token = #{appToken,jdbcType=VARCHAR},
+      weixin_token = #{weixinToken,jdbcType=VARCHAR},
+      last_login_client = #{lastLoginClient,jdbcType=CHAR},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      province_code = #{provinceCode,jdbcType=CHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city_code = #{cityCode,jdbcType=CHAR},
+      city = #{city,jdbcType=VARCHAR},
+      county_code = #{countyCode,jdbcType=CHAR},
+      county = #{county,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByUserId" parameterType="com.heartBar.sharedDiary.dto.UserCondition" >
+    update user_condition
+    set web_token = #{webToken,jdbcType=VARCHAR},
+    app_token = #{appToken,jdbcType=VARCHAR},
+    weixin_token = #{weixinToken,jdbcType=VARCHAR},
+    last_login_client = #{lastLoginClient,jdbcType=CHAR},
+    last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+    modify_time = now()
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>

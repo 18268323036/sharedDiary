@@ -11,8 +11,7 @@ import javax.annotation.Resource;
 /**
  * @author zhangxy 2017/9/26 17:25
  */
-@RestController
-public class UserInfoController {
+public class UserInfoController extends BaseController{
 
     @Resource
     private UserInfoService userInfoService;
@@ -23,20 +22,11 @@ public class UserInfoController {
         return userInfoService.insert(userInfo);
     }
 
-    @RequestMapping(value = "queryUserInfo")
+    @RequestMapping(value = "queryUserInfoById")
     public Object queryUserInfo(Long id){
         return userInfoService.queryUserInfoById(id);
     }
 
-    @RequestMapping(value = "helloWorld")
-    public Object helloWorld(){
-        UserInfo userInfo = new UserInfo();
-        userInfo.setMobile("18268323036");
-        userInfo.setCode("18268323036");
-        userInfo.setName("张翔耀");
-        userInfo.setUserType((byte)1);
-        userInfo.setPassword("123456");
-        return userInfo;
-    }
+
 
 }

@@ -27,6 +27,15 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
+    @ServiceLog("查询用户信息")
+    public UserInfo queryUserInfo(UserInfo userInfo) {
+        ValidUtil.paramValid(userInfo);
+        UserInfo user = userInfoDAO.queryUserInfo(userInfo);
+        return user;
+    }
+
+    @Override
+    @ServiceLog("插入用户信息")
     public int insert(UserInfo userInfo) {
         ValidUtil.paramValid(userInfo);
         ValidUtil.paramValid(userInfo.getCode(),userInfo.getMobile(),userInfo.getName(),userInfo.getPassword(),userInfo.getUserType());
