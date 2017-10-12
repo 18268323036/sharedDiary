@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heartBar.sharedDiary.dao.DiaryTextDAO" >
+  <resultMap id="BaseResultMap" type="com.heartBar.sharedDiary.dto.DiaryText" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="folder_id" property="folderId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.heartBar.sharedDiary.dto.DiaryText" extends="BaseResultMap" >
+    <result column="diary_content" property="diaryContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, folder_id, user_id, create_time, modify_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    diary_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from diary_text
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from diary_text
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByFolderId" parameterType="java.lang.Long">
+    DELETE FROM diary_text
+    WHERE folder_id = #{folderId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.heartBar.sharedDiary.dto.DiaryText" >
+    insert into diary_text (id, folder_id, create_time, 
+      modify_time, diary_content)
+    values (#{id,jdbcType=BIGINT}, #{folderId,jdbcType=BIGINT}, now(),
+      now(), #{diaryContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.heartBar.sharedDiary.dto.DiaryText" >
+    insert into diary_text
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="folderId != null" >
+        folder_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="diaryContent != null" >
+        diary_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="folderId != null" >
+        #{folderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="diaryContent != null" >
+        #{diaryContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.heartBar.sharedDiary.dto.DiaryText" >
+    update diary_text
+    <set >
+      <if test="folderId != null" >
+        folder_id = #{folderId,jdbcType=BIGINT},
+      </if>
+      now(),
+      <if test="diaryContent != null" >
+        diary_content = #{diaryContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.heartBar.sharedDiary.dto.DiaryText" >
+    update diary_text
+    set folder_id = #{folderId,jdbcType=BIGINT},
+      now(),
+      diary_content = #{diaryContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.heartBar.sharedDiary.dto.DiaryText" >
+    update diary_text
+    set folder_id = #{folderId,jdbcType=BIGINT},
+      now()
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

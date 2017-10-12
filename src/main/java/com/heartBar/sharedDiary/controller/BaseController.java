@@ -1,5 +1,7 @@
 package com.heartBar.sharedDiary.controller;
 
+import com.heartBar.sharedDiary.common.util.CookieUtil;
+import com.heartBar.sharedDiary.dto.UserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,11 @@ public class BaseController {
     protected HttpServletResponse response;
 
 
-
+    public Long getUserId(){
+        String sessionId = CookieUtil.findObject(request, "JSESSIONID", String.class);
+        UserInfo userInfo = (UserInfo) request.getSession().getAttribute(sessionId);
+        return userInfo.getId();
+    }
 
     public void setRequest(HttpServletRequest request) {this.request = request; }
 

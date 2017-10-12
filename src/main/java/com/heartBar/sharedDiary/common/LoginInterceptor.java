@@ -18,10 +18,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String sessionId = CookieUtil.findObject(request, "sessionId", String.class);
+        String sessionId = CookieUtil.findObject(request, "JSESSIONID", String.class);
         UserInfo userInfo = (UserInfo)request.getSession().getAttribute(sessionId);
         if(userInfo==null){
-            response.sendRedirect(request.getContextPath() + "/business/account/login/view");
+            response.sendRedirect(request.getContextPath() + "/loginView");
             return false;
         }else{
             return super.preHandle(request, response, handler);

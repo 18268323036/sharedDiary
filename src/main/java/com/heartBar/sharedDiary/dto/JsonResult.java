@@ -1,6 +1,7 @@
 package com.heartBar.sharedDiary.dto;
 
 import com.heartBar.sharedDiary.common.expection.ResultEnum;
+import com.heartBar.sharedDiary.common.expection.ValidException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -70,6 +71,13 @@ public class JsonResult <T> implements Serializable {
         JsonResult jsonResult = new JsonResult();
         jsonResult.code = code;
         jsonResult.message = message;
+        return jsonResult;
+    }
+
+    public static JsonResult validExceptionConvert(ValidException validException){
+        JsonResult jsonResult = new JsonResult();
+        jsonResult.code = validException.getErrorCode();
+        jsonResult.message = validException.getMessage();
         return jsonResult;
     }
 

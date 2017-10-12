@@ -11,6 +11,8 @@ public enum  ResultEnum {
     MOBILE_FORMAT_ERROR(102,"手机号码格式校验错误"),
     MOBILE_HASNOT_REGIST(103,"手机号码尚未注册"),
     PASSWORD_ERROR(104,"密码不正确"),
+    NO_DATA_ERROR(105,"没有相关数据"),
+    ADD_ERROR(106,"添加失败"),
 
     MOBILE_HAS_REGISTERED(110,"手机号码已经注册"),
     ;

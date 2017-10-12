@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heartBar.sharedDiary.dao.DiaryFolderDAO" >
+  <resultMap id="BaseResultMap" type="com.heartBar.sharedDiary.dto.DiaryFolder" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name,user_id, create_time, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from diary_folder
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from diary_folder
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.heartBar.sharedDiary.dto.DiaryFolder" >
+    insert into diary_folder (name, user_id, create_time,
+      modify_time)
+    values (#{name,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT},now(),now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.heartBar.sharedDiary.dto.DiaryFolder" >
+    insert into diary_folder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="userId != null" >
+        user_Id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      now(),
+      now()
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.heartBar.sharedDiary.dto.DiaryFolder" >
+    update diary_folder
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = now(),
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.heartBar.sharedDiary.dto.DiaryFolder" >
+    update diary_folder
+    set name = #{name,jdbcType=VARCHAR},
+      modify_time = now()
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="queryFolder" parameterType="com.heartBar.sharedDiary.dto.DiaryFolder">
+    select
+    <include refid="Base_Column_List" />
+    from diary_folder
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+</mapper>

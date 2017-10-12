@@ -37,14 +37,14 @@ public class RegisterController extends BaseController{
     /**
      * 注册
      * @param mobile
-     * @param password
+     * @param password2
      * @param captcha
      * @return
      */
     @RequestMapping(value = "register")
     @ResponseBody
-    public Object register(String mobile,String password,String captcha,Byte registResource) throws Exception {
-        if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password) || StringUtils.isEmpty(captcha)){
+    public Object register(String mobile,String password2,String captcha,Byte registSource) throws Exception {
+        if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password2)){
             throw new ValidException(ResultEnum.PARAM_ERROR);
         }
         if(!ValidUtil.validatePhone(mobile)){
@@ -58,25 +58,25 @@ public class RegisterController extends BaseController{
         }
         user.setUserType(UserType.COMMON_USER.getCode());
         user.setName("用户"+mobile.substring(7));
-        user.setRegistSource(registResource);
-        user.setPassword(MD5Util.MD5(password).toUpperCase());
+        user.setRegistSource(registSource);
+        user.setPassword(MD5Util.MD5(password2).toUpperCase());
         user.setSex(SexEnum.MALE.getCode());
         if(userInfoService.insert(user)>0){
             UserCondition userCondition = new UserCondition();
             Map<String,Object> map = new HashMap<>();
-            map.put("registSource",registResource);
+            map.put("registSource",registSource);
             map.put("code",mobile);
             String token = SecurityUtil.authentication(map);
             Long userId = user.getId();
-            if(registResource==1){
+            if(registSource==1){
                 userCondition.setWebToken(token);
-            }else if(registResource==2){
+            }else if(registSource==2){
                 userCondition.setAppToken(token);
             }else{
                 userCondition.setWebToken(token);
             }
             userCondition.setUserId(userId);
-            userCondition.setLastLoginClient(registResource);
+            userCondition.setLastLoginClient(registSource);
             userCondition.setLastLoginTime(new Date());
             if(userConditionService.insert(userCondition)>0){
                 String sessionId = CookieUtil.findObject(request, "sessionId", String.class);
