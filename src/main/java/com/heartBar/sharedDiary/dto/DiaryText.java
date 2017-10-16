@@ -13,6 +13,8 @@ public class DiaryText {
 
     private Date modifyTime;
 
+    private String diaryTitle;
+
     private String diaryContent;
 
     public Long getUserId() {
@@ -61,5 +63,13 @@ public class DiaryText {
 
     public void setDiaryContent(String diaryContent) {
         this.diaryContent = diaryContent ;
+    }
+
+    public String getDiaryTitle() {
+        return diaryTitle;
+    }
+
+    public void setDiaryTitle(String diaryTitle) {
+        this.diaryTitle = diaryTitle;
     }
 }

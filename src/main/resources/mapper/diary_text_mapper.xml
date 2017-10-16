@@ -7,23 +7,23 @@
     <result column="folder_id" property="folderId" jdbcType="BIGINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.heartBar.sharedDiary.dto.DiaryText" extends="BaseResultMap" >
     <result column="diary_content" property="diaryContent" jdbcType="LONGVARCHAR" />
+    <result column="diary_title" property="diaryTitle" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, folder_id, user_id, create_time, modify_time
+    id, folder_id, user_id, create_time, modify_time,diary_content,diary_title
   </sql>
-  <sql id="Blob_Column_List" >
-    diary_content
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from diary_text
     where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByFolderId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from diary_text
+    where folder_id = #{folderId}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from diary_text
@@ -35,9 +35,9 @@
   </delete>
   <insert id="insert" parameterType="com.heartBar.sharedDiary.dto.DiaryText" >
     insert into diary_text (id, folder_id, create_time, 
-      modify_time, diary_content)
+      modify_time, diary_content,diary_title)
     values (#{id,jdbcType=BIGINT}, #{folderId,jdbcType=BIGINT}, now(),
-      now(), #{diaryContent,jdbcType=LONGVARCHAR})
+      now(), #{diaryContent,jdbcType=LONGVARCHAR}, #{diaryTitle})
   </insert>
   <insert id="insertSelective" parameterType="com.heartBar.sharedDiary.dto.DiaryText" >
     insert into diary_text
@@ -60,6 +60,9 @@
       <if test="diaryContent != null" >
         diary_content,
       </if>
+      <if test="diaryTitle != null" >
+        diary_title,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -80,6 +83,9 @@
       <if test="diaryContent != null" >
         #{diaryContent,jdbcType=LONGVARCHAR},
       </if>
+      <if test="diaryTitle != null" >
+        #{diaryTitle},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.heartBar.sharedDiary.dto.DiaryText" >
@@ -92,6 +98,9 @@
       <if test="diaryContent != null" >
         diary_content = #{diaryContent,jdbcType=LONGVARCHAR},
       </if>
+      <if test="diaryTitle != null" >
+        diary_title = #{diaryTitle},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -99,7 +108,8 @@
     update diary_text
     set folder_id = #{folderId,jdbcType=BIGINT},
       now(),
-      diary_content = #{diaryContent,jdbcType=LONGVARCHAR}
+      diary_content = #{diaryContent,jdbcType=LONGVARCHAR},
+      diary_title = #{diaryTitle}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.heartBar.sharedDiary.dto.DiaryText" >
@@ -108,4 +118,7 @@
       now()
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="diaryTextCount" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM diary_text WHERE folder_id=#{folderId}
+  </select>
 </mapper>

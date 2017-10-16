@@ -3,6 +3,8 @@ package com.heartBar.sharedDiary.dao;
 
 import com.heartBar.sharedDiary.dto.DiaryText;
 
+import java.util.List;
+
 public interface DiaryTextDAO {
     int deleteByPrimaryKey(Long id);
 
@@ -12,6 +14,8 @@ public interface DiaryTextDAO {
 
     DiaryText selectByPrimaryKey(Long id);
 
+    List<DiaryText> selectByFolderId(Long folderId);
+
     int updateByPrimaryKeySelective(DiaryText record);
 
     int updateByPrimaryKeyWithBLOBs(DiaryText record);
@@ -19,4 +23,6 @@ public interface DiaryTextDAO {
     int updateByPrimaryKey(DiaryText record);
 
     int deleteByFolderId(Long folderId);
+
+    int diaryTextCount(Long folderId);
 }

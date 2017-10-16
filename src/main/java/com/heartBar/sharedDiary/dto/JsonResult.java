@@ -17,7 +17,7 @@ public class JsonResult <T> implements Serializable {
 
     private T t;
 
-    private List<T> list;
+    private List<T> rows;
 
     public JsonResult() {
     }
@@ -26,7 +26,7 @@ public class JsonResult <T> implements Serializable {
         this.code = code;
         this.message = message;
         this.t = t;
-        this.list = list;
+        this.rows = list;
     }
 
     public JsonResult(int code, String message, T t) {
@@ -39,7 +39,7 @@ public class JsonResult <T> implements Serializable {
     public JsonResult(int code, String message, List<T> list) {
         this.code = code;
         this.message = message;
-        this.list = list;
+        this.rows = list;
     }
 
     public JsonResult(int code, String message) {
@@ -113,14 +113,13 @@ public class JsonResult <T> implements Serializable {
         this.t = t;
     }
 
-    public List<T> getList() {
-        return list;
+    public List<T> getRows() {
+        return rows;
     }
 
-    public void setList(List<T> list) {
-        this.list = list;
+    public void setRows(List<T> rows) {
+        this.rows = rows;
     }
-
 
     //====================== jQuery validform ajax远程验证使用===================
 

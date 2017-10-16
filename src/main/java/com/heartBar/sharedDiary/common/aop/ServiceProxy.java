@@ -53,8 +53,9 @@ public class ServiceProxy {
             LOG.error("{}失败，{}。{}", methodName, e.getMessage(), e);
             obj = e;
         }
-        if (LOG.isDebugEnabled())
+        if (LOG.isDebugEnabled()){
             LOG.debug("{}的接口用时:{}毫秒", methodName, System.currentTimeMillis() - start);
+        }
         return obj;
     }
 

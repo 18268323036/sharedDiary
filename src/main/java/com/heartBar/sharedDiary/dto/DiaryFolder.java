@@ -1,8 +1,12 @@
 package com.heartBar.sharedDiary.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class DiaryFolder {
+public class DiaryFolder implements Serializable{
+
+    private static final long serialVersionUID = 4663197150190824230L;
+
     private Long id;
 
     private String name;
@@ -12,6 +16,8 @@ public class DiaryFolder {
     private Date createTime;
 
     private Date modifyTime;
+
+    private int diaryAmount;
 
     public Long getUserId() {
         return userId;
@@ -51,5 +57,13 @@ public class DiaryFolder {
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public int getDiaryAmount() {
+        return diaryAmount;
+    }
+
+    public void setDiaryAmount(int diaryAmount) {
+        this.diaryAmount = diaryAmount;
     }
 }

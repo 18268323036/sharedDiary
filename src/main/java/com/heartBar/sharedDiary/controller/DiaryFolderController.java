@@ -9,9 +9,11 @@ import com.heartBar.sharedDiary.service.DiaryFolderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author zhangxy 2017/10/11 14:58
@@ -28,6 +30,7 @@ public class DiaryFolderController extends BaseController{
      * @return
      */
     @RequestMapping(value = "addFolder")
+    @ResponseBody
     public Object addFolder(String name){
         if(StringUtils.isEmpty(name)){
             name = DateUtil.dateToFormatStr(new Date(),DateUtil.DATE_FORMATE_DAY)+"日记";
@@ -48,6 +51,7 @@ public class DiaryFolderController extends BaseController{
      * @return
      */
     @RequestMapping(value = "deleteFolder")
+    @ResponseBody
     public Object deleteFolder(Long folderId){
         if(folderId==null){
             throw new ValidException(ResultEnum.PARAM_ERROR);
@@ -60,5 +64,25 @@ public class DiaryFolderController extends BaseController{
         }
     }
 
+    @RequestMapping(value = "queryFolderList")
+    @ResponseBody
+    public Object queryFolderList(){
+        List<DiaryFolder> folderList = diaryFolderService.queryFolder(getUserId());
+        return JsonResult.getOkJsonObj(folderList);
+    }
+
+
+    @RequestMapping(value = "updateFolder")
+    @ResponseBody
+    public Object updateFolder(DiaryFolder diaryFolder){
+        if(diaryFolder.getId()==null){
+            throw new ValidException(ResultEnum.PARAM_ERROR);
+        }
+        if(diaryFolderService.updateFolder(diaryFolder)>0){
+            return new JsonResult<>(ResultEnum.SUCCESS);
+        }else{
+            return new JsonResult<>(ResultEnum.NO_DATA_ERROR);
+        }
+    }
 
 }

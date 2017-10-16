@@ -264,8 +264,9 @@ public class DateUtil {
     public static String dateToStr(Date date, String format) {
         String ret = null;
         String mask = format;
-        if (mask == null || "".equals(mask))
+        if (mask == null || "".equals(mask)){
             mask = "yyyy-MM-dd";
+        }
         SimpleDateFormat sdf = new SimpleDateFormat(mask);
         ret = sdf.format(date);
         return ret;

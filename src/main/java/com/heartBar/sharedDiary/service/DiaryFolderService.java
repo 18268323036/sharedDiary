@@ -30,6 +30,8 @@ public interface DiaryFolderService {
      */
     int deleteFolder(Long id);
 
+    int updateFolder(DiaryFolder diaryFolder);
+
 
 
 }

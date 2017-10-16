@@ -32,6 +32,14 @@ public class ValidUtil {
     /** 车牌号码的正则表达式 */
     public static final String CAR_NUMBER_REG = "^[\u4e00-\u9fa5]{1}[a-zA-Z]{1}[a-zA-Z_0-9]{4}[a-zA-Z_0-9_\u4e00-\u9fa5]$|^[a-zA-Z]{2}\\d{7}$";
 
+    /** 邮箱的正则表达式 */
+    public static final String MAIL_REG = "^([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+.[a-zA-Z]{2,4}$";
+
+    /** 数字的正则表达式 */
+    public static final String NUMBER_REG = "^\\d*$";
+
+    /**6-20位英文字母或数字 */
+    public static final String NUMBER_LETTER_REG = "^[a-zA-Z0-9]{6,20}$";
 
     /**
      * 判断是否为正确的移动电话号码
@@ -93,7 +101,7 @@ public class ValidUtil {
         if(StringUtils.isEmpty(mail)) {
             return false;
         }
-        Pattern mailRegx = Pattern.compile("^([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+.[a-zA-Z]{2,4}$");
+        Pattern mailRegx = Pattern.compile(MAIL_REG);
         Matcher match = mailRegx.matcher(mail);
         return match.matches();
     }
@@ -104,7 +112,7 @@ public class ValidUtil {
      * @return
      */
     public static boolean isNumberic(String str) {
-        Pattern pattern = Pattern.compile("^\\d*$");
+        Pattern pattern = Pattern.compile(NUMBER_REG);
         return pattern.matcher(str).matches();
     }
 
@@ -116,7 +124,7 @@ public class ValidUtil {
         if(StringUtils.isEmpty(str)) {
             return false;
         }
-        Pattern mailRegx = Pattern.compile("^[a-zA-Z0-9]{6,20}$");
+        Pattern mailRegx = Pattern.compile(NUMBER_LETTER_REG);
         Matcher match = mailRegx.matcher(str);
         return match.matches();
     }

@@ -35,6 +35,9 @@ public class DiaryFolderServiceImpl implements DiaryFolderService{
     @ServiceLog("查询文件夹")
     public List<DiaryFolder> queryFolder(Long userId) {
         List<DiaryFolder> diaryFolderList = diaryFolderDAO.queryFolder(userId);
+        for(DiaryFolder diaryFolder:diaryFolderList){
+            diaryFolder.setDiaryAmount(diaryTextDAO.diaryTextCount(diaryFolder.getId()));
+        }
         return diaryFolderList;
     }
 
@@ -45,9 +48,15 @@ public class DiaryFolderServiceImpl implements DiaryFolderService{
         int deleteTextResult = diaryTextDAO.deleteByFolderId(id);
         int result = diaryFolderDAO.deleteByPrimaryKey(id);
         if(deleteTextResult==0 && result==0){
-            throw  new ValidException(ResultEnum.NO_DATA_ERROR);
+            throw new ValidException(ResultEnum.NO_DATA_ERROR);
         }
         return 1;
+    }
+
+    @Override
+    public int updateFolder(DiaryFolder diaryFolder) {
+        int result = diaryFolderDAO.updateByPrimaryKey(diaryFolder);
+        return result;
     }
 
 

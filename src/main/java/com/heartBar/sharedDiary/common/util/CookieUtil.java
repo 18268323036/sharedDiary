@@ -44,12 +44,6 @@ public class CookieUtil {
      * @param time        保存时长  秒
      */
     public static void setCookie(String cookieName, String cookieValue, HttpServletResponse response, Integer time) {
-//        Cookie cookie = new Cookie(cookieName, cookieValue);
-//        cookie.setMaxAge(time);
-//        cookie.setPath(cookiePath);
-////        cookie.setSecure(Boolean.TRUE);
-//        response.addCookie(cookie);
-        // 上面的方法 EDGE与IE cookie写不进。
         java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis() + (time * 1000L));
         Date date = new Date(sqlDate.getTime());
         StringBuilder sb=getCookieStr(new CookieUnit(cookieName,cookieValue,cookiePath,"/",date,false,true));
@@ -100,42 +94,42 @@ public class CookieUtil {
         return e;
     }
 
-    private static StringBuilder getCookieStr(CookieUnit _cookie){
+    private static StringBuilder getCookieStr(CookieUnit cookie){
 
         StringBuilder sb=new StringBuilder();
-        sb.append(_cookie.key.trim());
+        sb.append(cookie.key.trim());
         sb.append('=');
-        if(!StringUtils.isEmpty(_cookie.value)){
-            sb.append(_cookie.value.trim());
+        if(!StringUtils.isEmpty(cookie.value)){
+            sb.append(cookie.value.trim());
         }
 
         //--max age属性或者expires属性，两者只能选择其中一个
-        if(_cookie.expires!=null){
+        if(cookie.expires!=null){
             //--只有expires存在的情况下才能设置domain。
             sb.append("; expires=");
             //--格林威志时间格式化，注意，这是这个参数的格式要求。
             SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss 'GMT'", Locale.US);
-            sb.append(sdf.format(_cookie.expires));
+            sb.append(sdf.format(cookie.expires));
         }else{
             sb.append("; max-age=");
-            sb.append(_cookie.Max_Age);
+            sb.append(cookie.Max_Age);
         }
         //--domain字符串
-        if(!StringUtils.isEmpty(_cookie.Domain)){
+        if(!StringUtils.isEmpty(cookie.Domain)){
             sb.append("; domain=");
-            sb.append(_cookie.Domain.trim());
+            sb.append(cookie.Domain.trim());
         }
         //--构造path字符串
-        if(!StringUtils.isEmpty(_cookie.Path)){
+        if(!StringUtils.isEmpty(cookie.Path)){
             sb.append("; path=");
-            sb.append(_cookie.Path.trim());
+            sb.append(cookie.Path.trim());
         }
         //--构造secure属性
-        if(_cookie.Secure){
+        if(cookie.Secure){
             sb.append("; Secure");
         }
         //--构造httpOnly属性
-        if(_cookie.HTTPOnly){
+        if(cookie.HTTPOnly){
             sb.append("; HttpOnly");
         }
         return sb;
@@ -145,16 +139,8 @@ public class CookieUtil {
         return cookiePath;
     }
 
-    public void setCookiePath(String cookiePath) {
-        this.cookiePath = cookiePath;
-    }
-
     public String getUserCookie() {
         return userCookie;
-    }
-
-    public void setUserCookie(String userCookie) {
-        this.userCookie = userCookie;
     }
 
 }

@@ -24,6 +24,7 @@ public class SecurityUtil {
         List<Map.Entry<String,Object>> list = new ArrayList<Map.Entry<String,Object>>(srcData.entrySet());
         Collections.sort(list, new Comparator<Map.Entry<String, Object>>(){
             //升序排序
+            @Override
             public int compare(Map.Entry<String,Object> o1, Map.Entry<String,Object> o2){
                 return o1.getKey().compareTo(o2.getKey());
             }

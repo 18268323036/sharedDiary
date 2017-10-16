@@ -72,7 +72,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <select id="queryFolder" parameterType="com.heartBar.sharedDiary.dto.DiaryFolder">
+  <select id="queryFolder" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from diary_folder
