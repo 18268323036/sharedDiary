@@ -13,6 +13,9 @@ public enum  ResultEnum {
     PASSWORD_ERROR(104,"密码不正确"),
     NO_DATA_ERROR(105,"没有相关数据"),
     ADD_ERROR(106,"添加失败"),
+    DELETE_ERROR(107,"删除失败"),
+    UPDATE_ERROR(108,"更新失败"),
+    PUBLIST_REPETETION_ERROR(109,"这篇日记已经发布过了哦~"),
 
     MOBILE_HAS_REGISTERED(110,"手机号码已经注册"),
     ;

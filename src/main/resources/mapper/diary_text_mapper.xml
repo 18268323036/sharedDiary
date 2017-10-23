@@ -34,9 +34,9 @@
     WHERE folder_id = #{folderId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.heartBar.sharedDiary.dto.DiaryText" >
-    insert into diary_text (id, folder_id, create_time, 
+    insert into diary_text (id, folder_id, user_id, create_time,
       modify_time, diary_content,diary_title)
-    values (#{id,jdbcType=BIGINT}, #{folderId,jdbcType=BIGINT}, now(),
+    values (#{id,jdbcType=BIGINT}, #{folderId,jdbcType=BIGINT},#{userId}, now(),
       now(), #{diaryContent,jdbcType=LONGVARCHAR}, #{diaryTitle})
   </insert>
   <insert id="insertSelective" parameterType="com.heartBar.sharedDiary.dto.DiaryText" >
@@ -114,8 +114,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.heartBar.sharedDiary.dto.DiaryText" >
     update diary_text
-    set folder_id = #{folderId,jdbcType=BIGINT},
-      now()
+    set
+    diary_title = #{diaryTitle},
+    diary_content = #{diaryContent},
+    modify_time = now()
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="diaryTextCount" parameterType="java.lang.Long" resultType="java.lang.Integer">

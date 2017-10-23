@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heartBar.sharedDiary.dao.PublishDiaryDAO" >
+  <resultMap id="BaseResultMap" type="com.heartBar.sharedDiary.dto.PublishDiary" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="diary_text_id" property="diaryTextId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="show_deadline" property="showDeadline" jdbcType="TIMESTAMP" />
+    <result column="is_overdue" property="isOverdue" jdbcType="CHAR" />
+    <result column="is_anonymity" property="isAnonymity" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="DiaryDetailResultMap" type="com.heartBar.sharedDiary.dto.DiaryInfoDetail" >
+    <result column="id" property="diaryId" jdbcType="BIGINT" />
+    <result column="diary_title" property="title" jdbcType="VARCHAR" />
+    <result column="diary_content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="is_anonymity" property="isAnonymity" jdbcType="VARCHAR" />
+    <result column="show_deadline" property="showDeadline" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, diary_text_id, user_id, create_time, show_deadline, is_overdue, is_anonymity
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from publish_diary
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByDiaryId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from publish_diary
+    where diary_text_id = #{diaryId,jdbcType=BIGINT}
+  </select>
+  <select id="queryPublishDiary" resultMap="BaseResultMap" parameterType="com.heartBar.sharedDiary.dto.PublishDiary" >
+    select
+    <include refid="Base_Column_List" />
+    from publish_diary
+    <where>
+      <if test="id != null" >
+        AND id = #{id}
+      </if>
+      <if test="diaryTextId != null" >
+        AND diary_text_id = #{diaryTextId}
+      </if>
+      <if test="userId != null" >
+        AND user_id = #{userId}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime}
+      </if>
+      <if test="showDeadline != null" >
+        AND show_deadline = #{showDeadline}
+      </if>
+      <if test="isOverdue != null" >
+        AND is_overdue = #{isOverdue}
+      </if>
+      <if test="isAnonymity != null" >
+        AND is_anonymity = #{isAnonymity}
+      </if>
+    </where>
+  </select>
+
+  <select id="queryPublishedDiary" resultMap="DiaryDetailResultMap">
+    SELECT dt.id,dt.diary_title,dt.diary_content,dt.user_id,pd.is_anonymity,pd.show_deadline
+    FROM publish_diary pd LEFT JOIN diary_text dt ON pd.diary_text_id=dt.id AND pd.is_overdue='0'
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from publish_diary
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.heartBar.sharedDiary.dto.PublishDiary" >
+    insert into publish_diary (id, diary_text_id, user_id, 
+      create_time, show_deadline, is_overdue ,is_anonymity
+      )
+    values (#{id,jdbcType=BIGINT}, #{diaryTextId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      now(), #{showDeadline,jdbcType=TIMESTAMP}, #{isOverdue,jdbcType=CHAR}, #{isAnonymity,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.heartBar.sharedDiary.dto.PublishDiary" >
+    insert into publish_diary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="diaryTextId != null" >
+        diary_text_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="showDeadline != null" >
+        show_deadline,
+      </if>
+      <if test="isOverdue != null" >
+        is_overdue,
+      </if>
+      <if test="isAnonymity != null" >
+        is_anonymity,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="diaryTextId != null" >
+        #{diaryTextId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="showDeadline != null" >
+        #{showDeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isOverdue != null" >
+        #{isOverdue,jdbcType=CHAR},
+      </if>
+      <if test="isAnonymity != null" >
+        #{isAnonymity,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.heartBar.sharedDiary.dto.PublishDiary" >
+    update publish_diary
+    <set >
+      <if test="diaryTextId != null" >
+        diary_text_id = #{diaryTextId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="showDeadline != null" >
+        show_deadline = #{showDeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isOverdue != null" >
+        is_overdue = #{isOverdue,jdbcType=CHAR},
+      </if>
+      <if test="isAnonymity != null" >
+        is_anonymity = #{isAnonymity,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.heartBar.sharedDiary.dto.PublishDiary" >
+    update publish_diary
+    set diary_text_id = #{diaryTextId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      show_deadline = #{showDeadline,jdbcType=TIMESTAMP},
+      is_overdue = #{isOverdue,jdbcType=CHAR},
+      is_anonymity = #{isAnonymity,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

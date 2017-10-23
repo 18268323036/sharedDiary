@@ -1,5 +1,7 @@
 package com.heartBar.sharedDiary.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class DiaryText {
@@ -9,8 +11,10 @@ public class DiaryText {
 
     private Long userId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date modifyTime;
 
     private String diaryTitle;

@@ -45,4 +45,11 @@ public class DiaryTextServiceImpl implements DiaryTextService {
         int result = diaryTextDAO.updateByPrimaryKey(diaryText);
         return result;
     }
+
+    @Override
+    @ServiceLog("根据id获取日记详情")
+    public DiaryText getDiaryDetail(Long diaryId) {
+        DiaryText diaryText = diaryTextDAO.selectByPrimaryKey(diaryId);
+        return diaryText;
+    }
 }

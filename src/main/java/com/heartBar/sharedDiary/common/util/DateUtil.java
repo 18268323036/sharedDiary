@@ -20,11 +20,11 @@ public class DateUtil {
     /**系统时间格式:  yyyy-MM-dd HH:mm:ss*/
     public static final String DATE_FORMATE_LONG = "yyyy-MM-dd HH:mm:ss";
     /**系统时间格式:  yyyyMMddHHmmss*/
-    public static final String DATE_FORMATE_Time_LONG = "yyyyMMddHHmmss";
+    public static final String DATE_FORMATE_TTIME_LONG = "yyyyMMddHHmmss";
     /**系统时间格式:  yyyyMMdd*/
     public static final String DATE_FORMATE_TIME = "yyyyMMdd";
     /**系统时间格式:  yyMMdd*/
-    public static final String DATE_FORMATE_TIME_yyMMdd = "yyMMdd";
+    public static final String DATE_FORMATE_TIME_YYMMDD = "yyMMdd";
     /**系统时间格式:  Y年m月d日 H时m分s秒*/
     public static final String DATE_FORMATE_CN_LONG = "yyyy年MM月dd日HH时mm分ss秒";
     /**系统时间格式: yyyy-MM-dd HH:mm*/
@@ -147,7 +147,7 @@ public class DateUtil {
         if (dataStr==null) {
             return null;
         }
-        return new SimpleDateFormat(DATE_FORMATE_Time_LONG).format(dataStr);
+        return new SimpleDateFormat(DATE_FORMATE_TTIME_LONG).format(dataStr);
     }
 
 

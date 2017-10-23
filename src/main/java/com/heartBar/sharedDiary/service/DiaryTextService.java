@@ -16,4 +16,6 @@ public interface DiaryTextService {
     List<DiaryText> queryDiary(Long folderId);
 
     int updateDiary(DiaryText diaryText);
+
+    DiaryText getDiaryDetail(Long diaryId);
 }

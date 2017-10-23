@@ -33,7 +33,7 @@ public class DiaryFolderController extends BaseController{
     @ResponseBody
     public Object addFolder(String name){
         if(StringUtils.isEmpty(name)){
-            name = DateUtil.dateToFormatStr(new Date(),DateUtil.DATE_FORMATE_DAY)+"日记";
+            name = DateUtil.dateToFormatStr(new Date(),DateUtil.DATE_FORMATE_DAY)+"日记本";
         }
         DiaryFolder diaryFolder = new DiaryFolder();
         diaryFolder.setName(name);

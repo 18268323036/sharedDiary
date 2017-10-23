@@ -1,5 +1,7 @@
 package com.heartBar.sharedDiary.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,8 +19,10 @@ public class UserCondition implements Serializable{
 
     private Byte lastLoginClient;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastLoginTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private Date modifyTime;
