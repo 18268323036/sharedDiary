@@ -6,16 +6,21 @@ import com.heartBar.sharedDiary.common.util.CookieUtil;
 import com.heartBar.sharedDiary.common.util.MD5Util;
 import com.heartBar.sharedDiary.common.util.SecurityUtil;
 import com.heartBar.sharedDiary.dto.JsonResult;
+import com.heartBar.sharedDiary.dto.User;
 import com.heartBar.sharedDiary.dto.UserCondition;
 import com.heartBar.sharedDiary.dto.UserInfo;
 import com.heartBar.sharedDiary.service.UserConditionService;
 import com.heartBar.sharedDiary.service.UserInfoService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +36,7 @@ public class LoginController extends BaseController{
     @Resource
     private UserConditionService userConditionService;
 
-    @RequestMapping(value = "login")
+    @RequestMapping(value = "login2")
     @ResponseBody
     public Object login(String code,String password,Byte registSource) throws Exception {
         if(StringUtils.isEmpty(code) || StringUtils.isEmpty(password)){
@@ -71,4 +76,39 @@ public class LoginController extends BaseController{
             throw new ValidException(ResultEnum.MOBILE_HASNOT_REGIST);
         }
     }
+
+
+    @RequestMapping("/login")
+    @ResponseBody
+    public Object loginUser(String code,String password,HttpSession session) {
+        if(StringUtils.isEmpty(code) || StringUtils.isEmpty(password)){
+            throw new ValidException(ResultEnum.PARAM_ERROR);
+        }
+        UserInfo userInfo = new UserInfo();
+        userInfo.setCode(code);
+        userInfo = userInfoService.queryUserInfo(userInfo);
+        if(userInfo!=null){
+            UsernamePasswordToken usernamePasswordToken=new UsernamePasswordToken(code,password);
+            Subject subject = SecurityUtils.getSubject();
+            try {
+                subject.login(usernamePasswordToken);
+                UserInfo user=(UserInfo) subject.getPrincipal();
+                String sessionId = CookieUtil.findObject(request, "JSESSIONID", String.class);
+                request.getSession().setAttribute(sessionId,user);
+                return JsonResult.getOkJsonObj(null);
+            } catch(Exception e) {
+                throw new ValidException(ResultEnum.PASSWORD_ERROR);
+            }
+        }else{
+            throw new ValidException(ResultEnum.MOBILE_HASNOT_REGIST);
+        }
+    }
+
+    @RequestMapping("/logOut")
+    public String logOut(HttpSession session) {
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        return "login";
+    }
+
 }

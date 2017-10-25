@@ -18,6 +18,9 @@
     <script type="text/javascript" src="js/jquery.easyui.mobile.js"></script>
 </head>
 <body>
+<div>
+    <input type="button" onclick="loginOut()" value="退出">
+</div>
 <table id="dg" title="My Diary Folder" class="easyui-datagrid" style="width:400px;height:250px;display: inline"
        url="queryFolderList"
        toolbar="#toolbar" pagination="false"
@@ -311,6 +314,9 @@
                 }
             });
         }
+    }
+    function loginOut(){
+        location.href = "logOut";
     }
 
 

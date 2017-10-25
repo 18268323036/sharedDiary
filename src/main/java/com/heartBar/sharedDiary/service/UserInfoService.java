@@ -14,4 +14,6 @@ public interface UserInfoService {
 
     int insert(UserInfo userInfo);
 
+    UserInfo findByUserName(String code);
+
 }

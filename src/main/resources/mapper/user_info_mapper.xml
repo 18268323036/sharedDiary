@@ -15,6 +15,14 @@
         <result column="qq" property="qq" />
         <result column="weixin" property="weixin" />
         <result column="weibo" property="weibo" />
+        <collection property="roles" ofType="com.heartBar.sharedDiary.dto.Role">
+            <id property="rid" column="rid"/>
+            <result property="rname" column="rname"/>
+            <collection property="modules" ofType="com.heartBar.sharedDiary.dto.Module">
+                <id property="mid" column="mid"/>
+                <result property="mname" column="mname"/>
+            </collection>
+        </collection>
     </resultMap>
 
     <sql id="allColumns">
@@ -49,9 +57,17 @@
     </select>
 
     <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.heartBar.sharedDiary.dto.UserInfo">
-        INSERT INTO user_info (user_type,code,password,head_img,name,sex,mobile,qq,weixin,weibo,regist_source,create_time,modify_time) VALUES
-        (#{userType},#{code},#{password},#{headImg},#{name},#{sex},#{mobile},#{qq},#{weixin},#{weibo},#{registSource},now(),now())
+        INSERT INTO user_info (user_type,code,password,head_img,name,sex,mobile,email,qq,weixin,weibo,regist_source,create_time,modify_time) VALUES
+        (#{userType},#{code},#{password},#{headImg},#{name},#{sex},#{mobile},#{email},#{qq},#{weixin},#{weibo},#{registSource},now(),now())
     </insert>
+
+    <select id="findByUserName" parameterType="string" resultMap="accountUserMap">
+        SELECT u.*,r.*,m.* FROM user_info u inner join user_role ur on ur.uid=u.id
+        inner join role r on r.rid=ur.rid
+        inner join module_role mr on mr.rid=r.rid
+        inner join module m on mr.mid=m.mid
+        WHERE code=#{code};
+    </select>
 
 
 </mapper>

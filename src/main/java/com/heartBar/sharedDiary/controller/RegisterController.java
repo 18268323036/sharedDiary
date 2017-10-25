@@ -43,7 +43,7 @@ public class RegisterController extends BaseController{
      */
     @RequestMapping(value = "register")
     @ResponseBody
-    public Object register(String mobile,String password2,String captcha,Byte registSource) throws Exception {
+    public Object register(String mobile,String password2,String captcha,Byte registSource,String name,String email) throws Exception {
         if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password2)){
             throw new ValidException(ResultEnum.PARAM_ERROR);
         }
@@ -57,7 +57,12 @@ public class RegisterController extends BaseController{
             throw new ValidException(ResultEnum.MOBILE_HAS_REGISTERED);
         }
         user.setUserType(UserType.COMMON_USER.getCode());
-        user.setName("用户"+mobile.substring(7));
+        if(StringUtils.isEmpty(name)){
+            user.setName("用户"+mobile.substring(7));
+        }else{
+            user.setName(name);
+        }
+        user.setEmail(email);
         user.setRegistSource(registSource);
         user.setPassword(MD5Util.MD5(password2).toUpperCase());
         user.setSex(SexEnum.MALE.getCode());

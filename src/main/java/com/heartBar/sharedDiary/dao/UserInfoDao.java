@@ -3,6 +3,8 @@ package com.heartBar.sharedDiary.dao;
 import com.heartBar.sharedDiary.dto.UserInfo;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * @author zhangxy 2017/9/27 16:15
  */
@@ -14,4 +16,6 @@ public interface UserInfoDAO {
     UserInfo queryUserInfo(UserInfo userInfo);
 
     int insert(UserInfo userInfo);
+
+    UserInfo findByUserName(String code);
 }

@@ -16,16 +16,16 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     private static Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
 
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String sessionId = CookieUtil.findObject(request, "JSESSIONID", String.class);
-        UserInfo userInfo = (UserInfo)request.getSession().getAttribute(sessionId);
-        if(userInfo==null){
-            response.sendRedirect(request.getContextPath() + "/loginView");
-            return false;
-        }else{
-            return super.preHandle(request, response, handler);
-        }
-    }
+//    @Override
+//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//        String sessionId = CookieUtil.findObject(request, "JSESSIONID", String.class);
+//        UserInfo userInfo = (UserInfo)request.getSession().getAttribute(sessionId);
+//        if(userInfo==null){
+//            response.sendRedirect(request.getContextPath() + "/loginView");
+//            return false;
+//        }else{
+//            return super.preHandle(request, response, handler);
+//        }
+//    }
 
 }

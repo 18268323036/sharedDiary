@@ -2,10 +2,12 @@ package com.heartBar.sharedDiary.config;
 
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.util.Properties;
 
 /**
  * @author zhangxy 2017/10/9 10:02
@@ -19,6 +21,17 @@ public class FreemarkerConfig {
     protected org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver resolver;
     @Resource
     protected org.springframework.web.servlet.view.InternalResourceViewResolver springResolver;
+
+    @Bean
+    public ShiroTagFreeMarkerConfigurer setShiroTagFreeMarkerConfigurer(){
+        ShiroTagFreeMarkerConfigurer shiroTagFreeMarkerConfigurer = new ShiroTagFreeMarkerConfigurer();
+        shiroTagFreeMarkerConfigurer.setTemplateLoaderPath("classpath:/templates/");
+        Properties properties = new Properties();
+        properties.setProperty("defaultEncoding","UTF-8");
+        properties.setProperty("classic_compatible","true");
+        shiroTagFreeMarkerConfigurer.setFreemarkerSettings(properties);
+        return shiroTagFreeMarkerConfigurer;
+    }
 
     @PostConstruct
     public void  setSharedVariable() {
@@ -42,5 +55,6 @@ public class FreemarkerConfig {
         resolver.setOrder(0);
 //        resolver.setContentType("text/html");
     }
+
 
 }

@@ -42,4 +42,12 @@ public class UserInfoServiceImpl implements UserInfoService {
         int count = userInfoDAO.insert(userInfo);
         return count;
     }
+
+    @Override
+    public UserInfo findByUserName(String code) {
+        ValidUtil.paramValid(code);
+        UserInfo userInfo = userInfoDAO.findByUserName(code);
+        return userInfo;
+    }
+
 }

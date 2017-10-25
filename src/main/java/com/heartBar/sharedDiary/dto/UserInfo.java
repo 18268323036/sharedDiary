@@ -2,6 +2,8 @@ package com.heartBar.sharedDiary.dto;
 
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author zhangxy 2017/9/27 16:11
@@ -28,12 +30,16 @@ public class UserInfo implements Serializable {
     private String mobile;
     //注册来源(1.web端 2.app端 3.微信端)
     private Byte registSource;
+    //email
+    private String email;
     //qq
     private String qq;
     //微信
     private String weixin;
     //微博
     private String weibo;
+
+    private Set<Role> roles = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -129,5 +135,21 @@ public class UserInfo implements Serializable {
 
     public void setRegistSource(Byte registSource) {
         this.registSource = registSource;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
