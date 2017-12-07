@@ -13,4 +13,5 @@ public class SharedDiaryApplicationTests {
 	public void contextLoads() {
 	}
 
+
 }

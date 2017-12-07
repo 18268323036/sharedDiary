@@ -25,5 +25,5 @@
         <@shiro.hasPermission name="update"><li>修改</li></@shiro.hasPermission>
         <@shiro.hasPermission name="query"><li>查询</li></@shiro.hasPermission>
 </ul>
-<a href="http://localhost:8080/logOut">点我注销</a>
+<a href="http://localhost:9999/logOut">点我注销</a>
 </body>

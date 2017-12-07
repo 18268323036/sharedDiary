@@ -8,6 +8,7 @@
     <link href="css/style.css" rel="stylesheet"/>
     <link href="css/icon.css" rel="stylesheet"/>
     <link href="css/easyui.css" rel="stylesheet"/>
+    <link href="css/trumbowyg.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/color.css">
@@ -127,9 +128,20 @@
     </table>
 </div>
 
-
+<script src="js/trumbowyg.js"></script>
+<script src="js/langs/fr.js"></script>
+<script src="js/plugins/upload/trumbowyg.upload.js"></script>
+<script src="js/plugins/base64/trumbowyg.base64.js"></script>
 <script type="text/javascript">
     var url;
+
+    $('.editor').on('dblclick', function(e){
+        $(this).trumbowyg({
+            lang: 'fr',
+            closable: true,
+            fixedBtnPane: true
+        });
+    });
 
     $(function(){
         $('#deadTime').combo({
